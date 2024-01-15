@@ -281,7 +281,13 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(Furniture, furniture);
         cv.put(Remark, remark);
         cv.put(Reporter_Name, reporter_name);
-        cv.put(Image, image);
+
+        //if the value is null, then the photo is not changed
+        //if not photo will be updated too
+        if(image!=null){
+            cv.put(Image, image);
+        }
+
         db.update(Prop_Table, cv, Ref_List_Num + " = ?", new String[]{ref_list_num});
         db.close();
     }

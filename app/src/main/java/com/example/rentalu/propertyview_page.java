@@ -116,9 +116,12 @@ public class propertyview_page extends AppCompatActivity {
                 String RE = remark.getText().toString();
                 String RN = reporter_name.getText().toString();
                 try{
+                    //default as no new photo is selected
+                    byte[] img = null;
+                    //if new photo is selected
                     if(imageToStore!=null){
-                        byte[] img = getByteArrayFromBitmap(imageToStore);
-                        
+                        img = getByteArrayFromBitmap(imageToStore);
+                    }
                         dbHelper.updateProperty(String.valueOf(ref_list_num), PT, BD, DT, RP, F, RE, RN,img, String.valueOf(user_id));
                         Toast.makeText(propertyview_page.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
 
@@ -127,7 +130,7 @@ public class propertyview_page extends AppCompatActivity {
                         i.putExtra("Username", RN);
                         startActivity(i);
                         finish();
-                    }
+
                 }
                 catch(Exception e){
                     e.printStackTrace();

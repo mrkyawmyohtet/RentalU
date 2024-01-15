@@ -53,6 +53,16 @@ public class aboutus_layout extends AppCompatActivity implements NavigationView.
         View headerView = navigationView.getHeaderView(0); //0 is index of the nav_drawer_header layout
         username = headerView.findViewById(R.id.userName);
         username.setText(i.getStringExtra("Username"));
+
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(aboutus_layout.this, profile_layout.class);
+                i.putExtra("Username", username.getText().toString());
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     @Override
