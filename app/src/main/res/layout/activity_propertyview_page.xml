@@ -20,12 +20,12 @@
             app:titleEnabled="false">
 
             <ImageButton
+                android:id="@+id/backToHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/arrowback_icon"
-                android:id="@+id/backToHome"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white"
+                android:src="@drawable/arrowback_icon" />
 
             <TextView
                 android:layout_width="100dp"
@@ -40,11 +40,12 @@
         </androidx.appcompat.widget.Toolbar>
 
         <ImageView
+            android:id="@+id/house_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/house_img"
-            android:src="@drawable/ic_launcher_foreground"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:onClick="chooseImage"
+            android:src="@drawable/ic_launcher_foreground" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -144,45 +145,45 @@
                     android:enabled="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:layout_width="175dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:hint="User ID">-->
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:layout_width="175dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="20dp"-->
+            <!--                android:hint="User ID">-->
 
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:id="@+id/user_id"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:enabled="false" />-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/user_id"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:enabled="false" />-->
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:id="@+id/buttons">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/delete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete"
-                android:textSize="16dp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:textColor="@color/red"/>
+                android:textColor="@color/red"
+                android:textSize="16dp" />
 
             <Button
                 android:id="@+id/update"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="Update"
-                android:textSize="16dp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                android:textSize="16dp" />
 
         </LinearLayout>
     </LinearLayout>

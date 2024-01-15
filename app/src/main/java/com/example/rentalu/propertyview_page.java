@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class propertyview_page extends AppCompatActivity {
 
     ImageView house_img;
+    ImageButton backtoHome;
     EditText ref_num, prop_type, bedroom, date_time, rent_price, furniture, remark, reporter_name;
     Button update, delete;
     LinearLayout buttons;
@@ -48,6 +50,7 @@ public class propertyview_page extends AppCompatActivity {
         buttons = (LinearLayout) findViewById(R.id.buttons);
         update = (Button) findViewById(R.id.update);
         delete = (Button) findViewById(R.id.delete);
+        backtoHome = (ImageButton) findViewById(R.id.backToHome);
 
         Intent i = getIntent();
         int id = i.getIntExtra("Ref_Num", 0);
@@ -116,13 +119,27 @@ public class propertyview_page extends AppCompatActivity {
                         
                         dbHelper.updateProperty(String.valueOf(ref_list_num), PT, BD, DT, RP, F, RE, RN,img, String.valueOf(user_id));
                         Toast.makeText(propertyview_page.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+
+                        //go back to newfeed page
+                        Intent i = new Intent(propertyview_page.this, newfeed_page.class);
+                        i.putExtra("Username", RN);
+                        startActivity(i);
+                        finish();
                     }
                 }
                 catch(Exception e){
                     e.printStackTrace();
                 }
+            }
+        });
 
-//                
+        backtoHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(propertyview_page.this, newfeed_page.class);
+                i.putExtra("Username", reporter_name.getText().toString());
+                startActivity(i);
+                finish();
             }
         });
     }
