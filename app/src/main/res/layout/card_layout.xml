@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/propertyCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_background"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/house_img"
+            android:layout_width="120dp"
+            android:layout_height="200dp"
+            android:background="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/list_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Listing Reference Number" />
+
+        <TextView
+            android:id="@+id/property_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_num"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Property Type" />
+
+        <TextView
+            android:id="@+id/bedrooms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/property_type"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Bedrooms" />
+
+        <TextView
+            android:id="@+id/date_Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bedrooms"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Date and Time" />
+
+        <TextView
+            android:id="@+id/rent_Price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date_Time"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Monthly Rent Price" />
+
+        <TextView
+            android:id="@+id/Furniture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rent_Price"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Furniture Status" />
+
+        <TextView
+            android:id="@+id/Remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Furniture"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Remarks" />
+
+        <TextView
+            android:id="@+id/reporter_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Remark"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/house_img"
+            android:hint="Name of the Reporter" />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

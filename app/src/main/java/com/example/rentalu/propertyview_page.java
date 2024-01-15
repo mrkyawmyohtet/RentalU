@@ -1,0 +1,162 @@
+package com.example.rentalu;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+
+public class propertyview_page extends AppCompatActivity {
+
+    ImageView house_img;
+    EditText ref_num, prop_type, bedroom, date_time, rent_price, furniture, remark, reporter_name;
+    Button update, delete;
+    LinearLayout buttons;
+
+    private static final int IMAGE_PERMISSION = 100;
+    private Uri imagePath;
+    private Bitmap imageToStore;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_propertyview_page);
+
+        house_img = (ImageView) findViewById(R.id.house_img);
+        ref_num = (EditText) findViewById(R.id.listRef);
+        prop_type = (EditText) findViewById(R.id.property_type);
+        bedroom = (EditText) findViewById(R.id.bedroom);
+        date_time = (EditText) findViewById(R.id.date_time);
+        rent_price = (EditText) findViewById(R.id.rent_price);
+        furniture = (EditText) findViewById(R.id.furniture_status);
+        remark = (EditText) findViewById(R.id.Remark);
+        reporter_name = (EditText) findViewById(R.id.reporter_Name);
+        buttons = (LinearLayout) findViewById(R.id.buttons);
+        update = (Button) findViewById(R.id.update);
+        delete = (Button) findViewById(R.id.delete);
+
+        Intent i = getIntent();
+        int id = i.getIntExtra("Ref_Num", 0);
+        boolean own = i.getBooleanExtra("isOwn", false);
+        DBHelper dbHelper = new DBHelper(propertyview_page.this, "property_table", null, 1);
+        ArrayList<PropertyModel> house = dbHelper.getSpecProperty(String.valueOf(id));
+
+        if(own){
+            buttons.setVisibility(View.VISIBLE);
+        }
+        else{
+            buttons.setVisibility(View.INVISIBLE);
+        }
+        PropertyModel propertyModel = house.get(0);
+        house_img.setImageBitmap(propertyModel.getImage());
+        ref_num.setText(String.valueOf(propertyModel.getRef_list_num()));
+        prop_type.setText(propertyModel.getProp_type());
+        bedroom.setText(propertyModel.getBedroom());
+        date_time.setText(String.valueOf(propertyModel.getDate_time()));
+        rent_price.setText(String.valueOf(propertyModel.getRent_price()));
+        furniture.setText(propertyModel.getFurniture());
+        remark.setText(propertyModel.getRemark());
+        reporter_name.setText(propertyModel.getReporter_name());
+//        user_id.setText(String.valueOf(propertyModel.getUser_id()));
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(propertyview_page.this);
+                builder.setMessage("Do you really want to delete this post?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dbHelper.deleteProperty(String.valueOf(propertyModel.getRef_list_num()));
+                        Toast.makeText(propertyview_page.this, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(propertyview_page.this, newfeed_page.class);
+                        i.putExtra("Username", reporter_name.getText().toString());
+                        startActivity(i);
+                        finish();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int ref_list_num = Integer.parseInt(ref_num.getText().toString());
+                int user_id = propertyModel.getUser_id();
+                String PT = prop_type.getText().toString();
+                String BD = bedroom.getText().toString();
+                String DT = date_time.getText().toString();
+                float RP = Float.parseFloat(rent_price.getText().toString());
+                String F = furniture.getText().toString();
+                String RE = remark.getText().toString();
+                String RN = reporter_name.getText().toString();
+                try{
+                    if(imageToStore!=null){
+                        byte[] img = getByteArrayFromBitmap(imageToStore);
+                        
+                        dbHelper.updateProperty(String.valueOf(ref_list_num), PT, BD, DT, RP, F, RE, RN,img, String.valueOf(user_id));
+                        Toast.makeText(propertyview_page.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+
+//                
+            }
+        });
+    }
+    
+    public void chooseImage(View view){
+        try {
+            Intent objectIntent = new Intent();
+            objectIntent.setType("image/*"); //set the type of intent
+            objectIntent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(objectIntent, IMAGE_PERMISSION);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+            if(requestCode == IMAGE_PERMISSION && resultCode == RESULT_OK && data != null && data.getData() != null){
+                imagePath = data.getData();
+                imageToStore = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
+                house_img.setImageBitmap(imageToStore);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private byte[] getByteArrayFromBitmap(Bitmap bitmap){
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+        return outputStream.toByteArray();
+    }
+}
