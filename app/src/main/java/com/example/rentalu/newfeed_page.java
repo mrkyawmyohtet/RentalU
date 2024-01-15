@@ -163,6 +163,7 @@ public class newfeed_page extends AppCompatActivity implements NavigationView.On
             Intent i = new Intent(newfeed_page.this, propertyview_page.class);
             i.putExtra("Ref_Num", ref_list_num);
             i.putExtra("isOwn", true);
+            i.putExtra("Username", username.getText().toString()); //to stay in the current user account
             startActivity(i);
             finish();
         }
@@ -170,6 +171,7 @@ public class newfeed_page extends AppCompatActivity implements NavigationView.On
             int ref_list_num = propertyModel.getRef_list_num(); //get the id of specific property
             Intent i = new Intent(newfeed_page.this, propertyview_page.class);
             i.putExtra("Ref_Num", ref_list_num);
+            i.putExtra("Username", username.getText().toString()); //to stay in the current user account
             startActivity(i);
             finish();
         }

@@ -55,6 +55,8 @@ public class propertyview_page extends AppCompatActivity {
         Intent i = getIntent();
         int id = i.getIntExtra("Ref_Num", 0);
         boolean own = i.getBooleanExtra("isOwn", false);
+        String currentUserName = i.getStringExtra("Username");
+        Log.d("TAG", "onCreate: currentUserName" + currentUserName);
         DBHelper dbHelper = new DBHelper(propertyview_page.this, "property_table", null, 1);
         ArrayList<PropertyModel> house = dbHelper.getSpecProperty(String.valueOf(id));
 
@@ -137,7 +139,7 @@ public class propertyview_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(propertyview_page.this, newfeed_page.class);
-                i.putExtra("Username", reporter_name.getText().toString());
+                i.putExtra("Username", currentUserName);
                 startActivity(i);
                 finish();
             }
