@@ -41,8 +41,8 @@
 
         <ImageView
             android:id="@+id/house_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
             android:layout_gravity="center"
             android:onClick="chooseImage"
             android:src="@drawable/ic_launcher_foreground" />

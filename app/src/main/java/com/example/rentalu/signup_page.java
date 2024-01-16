@@ -56,14 +56,17 @@ public class signup_page extends AppCompatActivity {
                         Toast.makeText(signup_page.this, "Username is already taken!", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        if(pass.equals(conpass)){
+                        if(!pass.equals(conpass)){
+                            Toast.makeText(signup_page.this, "Password must match!", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(!e.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
+                            Toast.makeText(signup_page.this, "Invalid Email Pattern!", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
                             dbHelper.addUser(FN, UN, pass, e, ph);
                             dbHelper.close();
                             clear();
                             Toast.makeText(signup_page.this, "Signed UP!", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(signup_page.this, "Password must match!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
