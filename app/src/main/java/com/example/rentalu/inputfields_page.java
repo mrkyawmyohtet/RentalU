@@ -81,14 +81,18 @@ public class inputfields_page extends AppCompatActivity {
                 String PT = prop_type.getText().toString();
                 String Bed = bedroom.getText().toString();
                 String DT = date_time.getText().toString();
-                float RP = Float.parseFloat(rent_price.getText().toString());
+                String rentPriceString = rent_price.getText().toString();
                 String F = furniture.getText().toString();
                 String RM = remark.getText().toString();
                 String RN = reporter_name.getText().toString();
                 int UID = Integer.parseInt(user_id.getText().toString());
                 //to check all the required fields are filled or not
                 try {
-                    if (!PT.isEmpty() && !Bed.isEmpty() && !DT.isEmpty() && RP != 0 && !F.isEmpty() && !RM.isEmpty() && !RN.isEmpty()){
+                    if (PT.trim().isEmpty() || Bed.trim().isEmpty() || DT.trim().isEmpty() || rentPriceString.trim().isEmpty() || F.trim().isEmpty() || RM.trim().isEmpty() || RN.trim().isEmpty()){
+                        Toast.makeText(inputfields_page.this, "Please fill all the required fields!", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        float RP = Float.parseFloat(rentPriceString);
                         if(imageToStore != null){
                             byte[] Img = getByteArrayFromBitmap(imageToStore);
 
@@ -107,9 +111,6 @@ public class inputfields_page extends AppCompatActivity {
                         else{
                             Toast.makeText(inputfields_page.this, "Please choose an Image of your property", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    else{
-                        Toast.makeText(inputfields_page.this, "Please fill all the required fields!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch(Exception e){
