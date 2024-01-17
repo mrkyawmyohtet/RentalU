@@ -51,7 +51,9 @@ public class signup_page extends AppCompatActivity {
                 String pass = password.getText().toString();
                 String conpass = conpassword.getText().toString();
 
-                if(FN != null && UN != null && e != null && ph != null && pass != null){
+                if (FN.trim().isEmpty() || UN.trim().isEmpty() || e.trim().isEmpty() || ph.trim().isEmpty() || pass.trim().isEmpty()) {
+                    Toast.makeText(signup_page.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                } else {
                     if(dbHelper.usernameTaken(UN)){
                         Toast.makeText(signup_page.this, "Username is already taken!", Toast.LENGTH_SHORT).show();
                     }
@@ -69,9 +71,6 @@ public class signup_page extends AppCompatActivity {
                             Toast.makeText(signup_page.this, "Signed UP!", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }
-                else{
-                    Toast.makeText(signup_page.this, "All fields are required", Toast.LENGTH_SHORT).show();
                 }
             }
         });
